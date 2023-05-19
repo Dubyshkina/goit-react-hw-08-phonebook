@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.link {
+    display:inline-block;
+    padding: 5px 10px;
+    width:70px;
+    text-align: center;
+    background-color: #9a2fb2;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+    
+}
+
+.link:hover {
+    background-color: #d94ae6;
+}

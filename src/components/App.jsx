@@ -1,41 +1,87 @@
-import s from 'components/App.module.css';
+// import s from 'components/App.module.css';
+// import  Navigation  from './Navigation/Navigation';
 
-import { Form } from './Form/Form';
-import { ContactsList } from './ContactsList/ContactsList';
-import { Filter } from './Filter/Filter';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { Route, Routes } from 'react-router-dom';
+// import { Suspense } from 'react';
+// lazy
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
+import { fetchCurrentUser } from 'redux/operations';
+import { PublicRoute } from './PublicRoute/PublicRoute';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
+
+import  LoginPage  from 'pages/LoginPage';
+import  RegisterPage  from 'pages/RegisterPage';
+import  HomePage  from 'pages/HomePage';
+import  ContactsPage  from 'pages/ContactsPage';
+import  Layout  from './Layout/Layout';
+
+
+
+// const ContactsPage = lazy(() => import('../pages/ContactsPage'));
+// const LoginPage = lazy(() => import('../pages/LoginPage'));
+// const HomePage = lazy(() => import('../pages/HomePage'));
+// const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+
 
 export const App = () => {
-  const contacts = useSelector(state => state.contacts.contacts.items);
-  const filter = useSelector(state => state.filter.filter);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  const checkDuplicate = name =>
-    contacts.some(cont => cont.name.toLowerCase() === name.toLowerCase());
-
-  const filteredContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+    dispatch(fetchCurrentUser());
+  }, [dispatch])
 
   return (
-    <div className={s.container}>
-      <div className={s.section}>
-        <h2>Phonebook</h2>
-        <Form checkDuplicate={checkDuplicate} />
-      </div>
-      <div className={s.section}>
-        <h2>Contacts</h2>
-        <Filter />
-        <ContactsList contacts={filteredContacts()}></ContactsList>
-      </div>
-    </div>
-  );
+    <>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/login"
+          element={
+              <PublicRoute>
+                <LoginPage/>
+              </PublicRoute>
+            }
+        />
+        <Route
+          path="/register"
+          element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            }
+          />
+           <Route
+            path="/contacts"
+             element={
+              <PrivateRoute>
+                <ContactsPage />
+              </PrivateRoute>
+            }
+          />
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
+      
+  </>)
 };
+
+//   return (
+//     <div className={s.container}> 
+//     <Navigation></Navigation>
+// <Suspense fallback={<h3>Loading...</h3>}>
+//   <Routes>
+//     <Route path='/goit-react-hw-08-phonebook' element={<HomePage/>}/>
+//     <Route path='/login' element={<LoginPage/>}/>
+//     <Route path='/register' element={<RegisterPage/>}/>
+//     <Route path='/contacts' element={<ContactsPage/>}/>
+//     <Route path='*' element={<HomePage/>}/>
+//   </Routes>
+// </Suspense>
+    
+//      </div>
+//   );
+// };

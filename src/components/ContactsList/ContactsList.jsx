@@ -7,11 +7,11 @@ export const ContactsList = ({ contacts }) => {
   const dispatch = useDispatch();
   return (
     <ul className={s.list}>
-      {contacts.map(({ id, name, phone }) => {
+      {contacts.map(({ id, name, number }) => {
         return (
           <li key={id}>
-            <span>{name}: </span>
-            <span>{phone}</span>
+            <span className={s.text}>{name}: </span>
+            <span className={s.text}>{number}</span>
             <button
               className={s.btn}
               type="button"
@@ -30,7 +30,7 @@ ContactsList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
-      phone: PropTypes.string,
+      number: PropTypes.string,
     })
   ),
 };

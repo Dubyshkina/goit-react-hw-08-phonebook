@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import s from '../Form/Form.module.css';
+import s from './Form.module.css';
 // import { nanoid } from 'nanoid';
 import { addContact } from 'redux/operations';
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,7 @@ export const Form = ({ checkDuplicate }) => {
     event.preventDefault();
     checkDuplicate(name)
       ? alert(`${name} is already in contacts`)
-      : dispatch(addContact({ name, phone:number}));
+      : dispatch(addContact({ name, number}));
 
     setName('');
     setNumber('');

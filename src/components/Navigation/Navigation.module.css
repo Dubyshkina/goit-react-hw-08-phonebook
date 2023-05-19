@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    background-color: #ebcaf0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+.link{
+    display:inline-block;
+    padding: 5px 10px;
+    color: rgb(172, 27, 172);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    font-size: large;
+}
+.link:hover,
+.link:focus{
+    color:white
+}
