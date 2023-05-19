@@ -5,7 +5,7 @@
 import { Route, Routes } from 'react-router-dom';
 // import { Suspense } from 'react';
 // lazy
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from 'redux/operations';
 import { PublicRoute } from './PublicRoute/PublicRoute';
@@ -16,6 +16,7 @@ import  RegisterPage  from 'pages/RegisterPage';
 import  HomePage  from 'pages/HomePage';
 import  ContactsPage  from 'pages/ContactsPage';
 import  Layout  from './Layout/Layout';
+import {selectedIsAuth} from '../redux/authSelectors';
 
 
 
@@ -27,6 +28,7 @@ import  Layout  from './Layout/Layout';
 
 export const App = () => {
   const dispatch = useDispatch();
+  const isAuth = useSelector(selectedIsAuth);
 
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const App = () => {
               </PrivateRoute>
             }
           />
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={!isAuth ? <LoginPage/> : <ContactsPage/>} />
       </Route>
     </Routes>
       

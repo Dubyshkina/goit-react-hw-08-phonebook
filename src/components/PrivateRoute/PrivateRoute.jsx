@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { selectToken } from 'redux/authSelectors';
+import { selectedIsAuth } from 'redux/authSelectors';
 
 
 export const PrivateRoute = ({ children }) => {
-  const authToken = useSelector(selectToken);
-  if (!authToken) {
+  const isAuth = useSelector(selectedIsAuth);
+  if (!isAuth) {
     return <Navigate to="/login" />;
   }
   return children;
