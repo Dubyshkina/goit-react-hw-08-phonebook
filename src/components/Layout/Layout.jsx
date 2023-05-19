@@ -14,7 +14,6 @@ const isAuth = useSelector(state => state.auth.isAuth)
         <Navigation />
         
             {isAuth ? <UserMenu /> : <AuthForm />}
-            {/* <div style={{ display: 'flex', justifyContent: 'center' }}><img src={require("../../images/hello-1502369_1280.png")} alt="Welcome" style={{ width: '600px'}} /></div> */}
             <Outlet/>
         </div>
     </>)
