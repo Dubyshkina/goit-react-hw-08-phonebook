@@ -45,9 +45,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuth = true;
         state.error = null;
-        state.name = payload.name;
-        state.email = payload.email;
-        state.password = payload.password;
+        state.name = payload.user.name;
+        state.email = payload.user.email;
+        state.password = payload.user.password;
         state.token = payload.token;
 
       }).addMatcher((action)=>action.type.endsWith("rejected"), (state, {payload}) => {
