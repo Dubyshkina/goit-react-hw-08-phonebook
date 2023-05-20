@@ -53,16 +53,17 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
-// Fetch new API
-// export const registerUserAPI = (registerForm) => {
-//   return axios.post(`/${USER_URL}/signup`, {...registerForm}).then(({data}) => ({data}));
-// }
+
 export const registerUser = createAsyncThunk(
   'users/registerUser',
-  async ({name, email, password}, thunkAPI) => {
+  async ({ name, email, password }, thunkAPI) => {
     try {
-      const {data} = await axios.post(`/${USER_URL}/signup`, {name, email, password});
-      token.set(data.token)
+      const { data } = await axios.post(`/${USER_URL}/signup`, {
+        name,
+        email,
+        password,
+      });
+      token.set(data.token);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -72,10 +73,13 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'users/loginUser',
-  async ({email, password}, thunkAPI) => {
+  async ({ email, password }, thunkAPI) => {
     try {
-      const {data} = await axios.post(`/${USER_URL}/login`, {email, password});
-      token.set(data.token)
+      const { data } = await axios.post(`/${USER_URL}/login`, {
+        email,
+        password,
+      });
+      token.set(data.token);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -83,40 +87,26 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const logOut = createAsyncThunk(
-  'users/logOut',
-  async (_, thunkAPI) => {
-    try {
-      const {data} = await axios.post(`/${USER_URL}/logout`);
-      token.unset();
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const logOut = createAsyncThunk('users/logOut', async (_, thunkAPI) => {
+  try {
+    const { data } = await axios.post(`/${USER_URL}/logout`);
+    token.unset();
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    token.set(state.auth.token)
+    token.set(state.auth.token);
     try {
       const { data } = await axios.get('/users/current');
-      console.log("data:", data)
-      
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-
-// https://connections-api.herokuapp.com/
-
-
-// {
-//   "name": "Adrian Cross",
-//   "email": "across@mail.com",
-//   "password": "examplepwd12345"
-// }

@@ -7,8 +7,7 @@ import { logOut } from 'redux/operations';
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
-  console.log(userName)
-
+  
   return (
     <>
       <div className={s.container}>
